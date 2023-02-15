@@ -1,0 +1,11 @@
+/* CSS RESET */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.activity-scroll {
+    height: 150px;
+    overflow-y: auto;
+
+}

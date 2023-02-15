@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Ninja Gold</title>
+</head>
+
+<body>
+
+
+
+    <div class="container">
+
+        <!-- GOLD COUNTER -->
+        <div class="row d-flex align-items-center mb-4 mt-2">
+            <p class="col-2 d-flex align-items-center mb-0">Your Gold:</p>
+            <div class="card col-4">
+                <div class="card-body p-2">
+                    <p class="m-0">{{ session.money }}</p>
+                </div>
+            </div>
+            {% if session.activity|length != 0 %}
+            <form action="/process_money" method="post" class="col-1 ms-auto d-flex justify-content-end">
+                <input type="hidden" name="reset" value="reset">
+                <input type="submit" value="Reset" class="btn btn-danger">
+            </form>
+            {% endif %}
+        </div>
+
+        <!-- BUILDING CARDS -->
+        <div class="row g-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h2>Farm</h2>
+                        <p>(earns 10-20 golds)</p>
+                        <form action="/process_money" method="post">
+                            <input type="hidden" name="building" value="farm" />
+                            <input type="submit" class="btn btn-outline-primary" value="Find Gold!" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h2>Cave</h2>
+                        <p>(earns 5-10 golds)</p>
+                        <form action="/process_money" method="post">
+                            <input type="hidden" name="building" value="cave" />
+                            <input type="submit" class="btn btn-outline-primary" value="Find Gold!" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h2>House</h2>
+                        <p>(earns 2-5 golds)</p>
+                        <form action="/process_money" method="post">
+                            <input type="hidden" name="building" value="house" />
+                            <input type="submit" class="btn btn-outline-primary" value="Find Gold!" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h2>Casino</h2>
+                        <p>(earns/takes 0-50 golds)</p>
+                        <form action="/process_money" method="post">
+                            <input type="hidden" name="building" value="casino" />
+                            <input type="submit" class="btn btn-outline-primary" value="Find Gold!" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVITIES -->
+        <div class="row">
+            <p class="my-2">Activities:</p>
+        </div>
+        <div class="row">
+            <div class="col card activity-scroll py-1">
+
+                {% if session.activity|length == 0 %}
+                    <p class="mb-0">Track your gold activity here!</p>
+
+                {% endif %}
+
+                {% for str in session.activity|reverse %}
+                    {{ str|safe }}
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
